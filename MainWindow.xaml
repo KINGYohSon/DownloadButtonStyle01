@@ -1,0 +1,246 @@
+﻿<Window x:Class="DowmloadButton01.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DowmloadButton01"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <Window.Resources>
+        <Style x:Key="DownloadButtonStyle"
+               TargetType="Button">
+            
+            <!--#颜色设置-->
+            <Setter Property="Background"
+                    Value="#000000" />
+            <Setter Property="Foreground"
+                    Value="#FFFFFF" />
+            <Setter Property="BorderBrush"
+                    Value="#00B86A" />
+            
+            <!--#region
+            
+            尺寸变更指南：
+            
+            对于border
+            Height值请务必先行写定，剩余每一个地方的值都是有比例的
+            其他值的比例为：
+            Width = 3*Height
+            CornerRadius = 0.5*Height
+            BorderThickness = 0.05*Height
+            
+            drawGrid.Margin="A,B"中，B=0.1Height，A=B+1
+            
+            因为实在不想写转换器了，而且带着也麻烦，大家用这个控件也写死好了，
+            或者你有闲情可以写转换器，但是动画哪里可能会出现To未知值而冻结的
+            bug，你需要写后置代码来额外处理这个情况，所以最好写死。
+            
+            给定的Height值写整十数比较好运算，推荐40、50、60、100等等
+            最好不要小于30！！！（下载按钮放那么小，你没良心！）
+            -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Width="180"
+                                Height="60"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="3"
+                                CornerRadius="30">
+                            <Grid x:Name="drawGrid"
+                                  Margin="7,6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.26*"/>
+                                    <ColumnDefinition Width="0.74*"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <!--
+                                这个textGrid的Margin="C,0"
+                                C=(1/6)*Height
+                                -->
+                                <Grid x:Name="textGrid"
+                                      Grid.Column="1"
+                                      Margin="10,0">
+                                    <!--
+                                    这里使用了Drawing来呈现“Download”文本，便于自动变化尺寸
+                                    你也可以选择TextBlock来键入自己的文本，颜色绑定到Foreground即可，
+                                    但是需要去考虑合适的FontSize
+                                    -->
+                                    <Image>
+                                        <Image.Source>
+                                            <DrawingImage>
+                                                <DrawingImage.Drawing>
+                                                    <DrawingGroup xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                                                                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                                                        <DrawingGroup x:Name="downloadTextLayer">
+                                                            <DrawingGroup.ClipGeometry>
+                                                                <RectangleGeometry Rect="0,0,577,98" />
+                                                            </DrawingGroup.ClipGeometry>
+                                                            <DrawingGroup Transform="1,0,0,1,-1963,-647">
+                                                                <DrawingGroup.ClipGeometry>
+                                                                    <RectangleGeometry RadiusX="0"
+                                                                                       RadiusY="0"
+                                                                                       Rect="1963,647,577,98" />
+                                                                </DrawingGroup.ClipGeometry>
+                                                                <GeometryDrawing Brush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}">
+                                                                    <GeometryDrawing.Geometry>
+                                                                        <PathGeometry FillRule="EvenOdd"
+                                                                                      Figures="M2438.09,713.264C2433,713.264 2429.06,714.237 2426.26,716.184 2423.47,718.13 2422.07,720.839 2422.07,724.308 2422.07,727.44 2423.21,729.915 2425.5,731.734 2427.79,733.554 2430.8,734.463 2434.53,734.463 2439.19,734.463 2443.17,733.131 2446.48,730.465 2449.78,727.799 2451.44,724.096 2451.44,719.357L2451.44,715.168C2446.35,713.899,2441.9,713.264,2438.09,713.264z M2508.21,688.256C2502.79,688.256 2498.44,690.203 2495.18,694.096 2491.92,697.989 2490.29,703.49 2490.29,710.598 2490.29,717.792 2491.92,723.377 2495.18,727.355 2498.44,731.332 2502.79,733.321 2508.21,733.321 2513.38,733.321 2517.81,731.459 2521.5,727.736 2525.19,724.012 2527.03,718.299 2527.03,710.598 2527.03,702.982 2525.19,697.354 2521.5,693.715 2517.81,690.076 2513.38,688.256 2508.21,688.256z M2364.65,688.002C2359.31,688.002 2354.88,690.034 2351.36,694.096 2347.84,698.158 2346.08,703.659 2346.08,710.598 2346.08,717.538 2347.84,723.039 2351.36,727.101 2354.88,731.163 2359.31,733.194 2364.65,733.194 2370.07,733.194 2374.52,731.163 2378,727.101 2381.47,723.039 2383.21,717.538 2383.21,710.598 2383.21,703.659 2381.45,698.158 2377.94,694.096 2374.42,690.034 2369.99,688.002 2364.65,688.002z M2082.86,688.002C2077.52,688.002 2073.1,690.034 2069.58,694.096 2066.06,698.158 2064.3,703.659 2064.3,710.598 2064.3,717.538 2066.06,723.039 2069.58,727.101 2073.1,731.163 2077.52,733.194 2082.86,733.194 2088.29,733.194 2092.74,731.163 2096.21,727.101 2099.69,723.039 2101.43,717.538 2101.43,710.598 2101.43,703.659 2099.67,698.158 2096.15,694.096 2092.63,690.034 2088.2,688.002 2082.86,688.002z M2121.72,677.72L2135.32,677.72 2151.47,724.689 2166.35,677.72 2176.9,677.72 2193.05,724.435 2208.05,677.72 2220.51,677.72 2196.99,743.603 2188.09,743.603 2171.31,698.031 2155.29,743.603 2146.26,743.603z M2437.96,676.197C2445.84,676.197 2452.22,678.524 2457.1,683.179 2461.97,687.833 2464.41,694.519 2464.41,703.236L2464.41,743.603 2453.09,743.603C2452.92,739.795 2452.71,737.087 2452.45,735.479 2448.39,741.826 2441.86,745 2432.87,745 2428.47,745 2424.42,744.196 2420.73,742.588 2417.04,740.98 2414.1,738.652 2411.9,735.606 2409.69,732.559 2408.59,728.878 2408.59,724.562 2408.59,718.046 2411.26,712.883 2416.6,709.075 2421.94,705.267 2428.76,703.362 2437.07,703.362 2441.73,703.362 2446.52,703.997 2451.44,705.267L2451.44,705.013C2451.44,699.004 2450.25,694.582 2447.88,691.747 2445.5,688.912 2441.94,687.495 2437.2,687.495 2433.38,687.495 2430.18,688.32 2427.6,689.97 2425.01,691.62 2422.83,694.011 2421.05,697.142L2411.39,691.557C2413.51,686.902 2416.94,683.179 2421.69,680.386 2426.43,677.593 2431.86,676.197 2437.96,676.197z M2364.78,676.197C2370.45,676.197 2375.75,677.636 2380.67,680.513 2385.58,683.39 2389.53,687.452 2392.49,692.699 2395.46,697.946 2396.94,703.913 2396.94,710.598 2396.94,717.284 2395.46,723.25 2392.49,728.497 2389.53,733.744 2385.58,737.806 2380.67,740.684 2375.75,743.561 2370.45,745 2364.78,745 2359.01,745 2353.65,743.561 2348.69,740.684 2343.73,737.806 2339.77,733.744 2336.8,728.497 2333.84,723.25 2332.35,717.284 2332.35,710.598 2332.35,703.913 2333.84,697.946 2336.8,692.699 2339.77,687.452 2343.73,683.39 2348.69,680.513 2353.65,677.636 2359.01,676.197 2364.78,676.197z M2263.46,676.197C2270.58,676.197 2276.26,678.524 2280.5,683.179 2284.74,687.833 2286.85,694.561 2286.85,703.362L2286.85,743.603 2273.76,743.603 2273.76,707.298C2273.76,701.204 2272.61,696.507 2270.33,693.207 2268.04,689.906 2264.56,688.256 2259.9,688.256 2255.15,688.256 2251.11,689.928 2247.76,693.271 2244.41,696.613 2242.74,701.374 2242.74,707.552L2242.74,743.603 2229.64,743.603 2229.64,677.72 2241.21,677.72C2241.38,681.867 2241.63,685.463 2241.97,688.51 2244.18,684.448 2247.12,681.38 2250.81,679.307 2254.5,677.234 2258.71,676.197 2263.46,676.197z M2082.99,676.197C2088.67,676.197 2093.97,677.636 2098.89,680.513 2103.8,683.39 2107.74,687.452 2110.71,692.699 2113.68,697.946 2115.16,703.913 2115.16,710.598 2115.16,717.284 2113.68,723.25 2110.71,728.497 2107.74,733.744 2103.8,737.806 2098.89,740.684 2093.97,743.561 2088.67,745 2082.99,745 2077.23,745 2071.87,743.561 2066.91,740.684 2061.95,737.806 2057.99,733.744 2055.02,728.497 2052.05,723.25 2050.57,717.284 2050.57,710.598 2050.57,703.913 2052.05,697.946 2055.02,692.699 2057.99,687.452 2061.95,683.39 2066.91,680.513 2071.87,677.636 2077.23,676.197 2082.99,676.197z M1976.6,662.487L1976.6,731.671 1988.43,731.671C1999.53,731.671 2008.2,728.645 2014.43,722.594 2020.66,716.543 2023.78,708.017 2023.78,697.015 2023.78,686.098 2020.66,677.614 2014.43,671.563 2008.2,665.512 1999.53,662.487 1988.43,662.487z M1963,650.681L1990.21,650.681C1999.28,650.681 2007.46,652.501 2014.75,656.14 2022.04,659.779 2027.76,665.11 2031.91,672.135 2036.07,679.159 2038.14,687.452 2038.14,697.015 2038.14,706.748 2036.07,715.105 2031.91,722.087 2027.76,729.068 2022.06,734.4 2014.81,738.082 2007.56,741.763 1999.36,743.603 1990.21,743.603L1963,743.603z M2527.03,647L2540,647 2540,743.603 2528.56,743.603C2528.13,737.849 2527.84,734.252 2527.67,732.813 2525.29,736.876 2522.18,739.922 2518.32,741.953 2514.46,743.984 2510.38,745 2506.05,745 2500.88,745 2496.05,743.646 2491.56,740.938 2487.06,738.23 2483.46,734.273 2480.75,729.068 2478.04,723.864 2476.68,717.707 2476.68,710.598 2476.68,703.574 2478.04,697.46 2480.75,692.255 2483.46,687.05 2487.06,683.073 2491.56,680.322 2496.05,677.572 2500.88,676.197 2506.05,676.197 2510.21,676.197 2514.13,677.128 2517.81,678.99 2521.5,680.851 2524.57,683.602 2527.03,687.241z M2305.24,647L2318.34,647 2318.34,743.603 2305.24,743.603z" />
+                                                                    </GeometryDrawing.Geometry>
+                                                                </GeometryDrawing>
+                                                            </DrawingGroup>
+                                                        </DrawingGroup>
+                                                    </DrawingGroup>
+                                                </DrawingImage.Drawing>
+                                            </DrawingImage>
+                                        </Image.Source>
+                                    </Image>
+                                </Grid>
+
+                                <StackPanel x:Name="iconGrid" 
+                                            Grid.ColumnSpan="2"
+                                            HorizontalAlignment="Left">
+                                    <!--
+                                    iconBorder以及里面叠加在左右的两个的初始Width和Height都等于
+                                    最上面那个第一个border的 0.7*Height，注意动画值也要修改一下
+                                    CornerRadius值与前面相同
+                                    -->
+                                    <Border Background="{Binding BorderBrush, RelativeSource={RelativeSource AncestorType=Button}}"
+                                            Width="42"
+                                            Height="42"
+                                            CornerRadius="30"
+                                            x:Name="iconBorder">
+                                        <Grid>
+                                            <Border Background="#00B86A"
+                                                    Width="42"
+                                                    Height="42"
+                                                    CornerRadius="30"
+                                                    HorizontalAlignment="Left"
+                                                    x:Name="leftBorder"/>
+                                            <Border Background="#00B86A"
+                                                    Width="42"
+                                                    Height="42"
+                                                    CornerRadius="30"
+                                                    HorizontalAlignment="Right"
+                                                    x:Name="rightBorder"/>
+                                            
+                                            <!--
+                                            这里是↓箭头的图标
+                                            Margin=(1/6)*Height
+                                            -->
+                                            <Image Margin="10">
+                                                <Image.Source>
+                                                    <DrawingImage>
+                                                        <DrawingImage.Drawing>
+                                                            <DrawingGroup xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                                                                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                                                                <DrawingGroup x:Name="DrawingLayer">
+                                                                    <DrawingGroup.ClipGeometry>
+                                                                        <RectangleGeometry Rect="0,0,117,131" />
+                                                                    </DrawingGroup.ClipGeometry>
+                                                                    <DrawingGroup Transform="1,0,0,1,-988,-1258">
+                                                                        <DrawingGroup.ClipGeometry>
+                                                                            <RectangleGeometry RadiusX="0"
+                                                                                               RadiusY="0"
+                                                                                               Rect="988,1258,117,131" />
+                                                                        </DrawingGroup.ClipGeometry>
+                                                                        <GeometryDrawing Brush="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}">
+                                                                            <GeometryDrawing.Geometry>
+                                                                                <PathGeometry FillRule="EvenOdd"
+                                                                                              Figures="M1046.5,1258C1052.31,1258,1057.01,1264.1,1057.01,1271.63L1057.01,1353.73 1087.43,1323.38C1087.54,1323.26 1087.66,1323.14 1087.77,1323.03 1091.77,1319.23 1098.09,1319.39 1101.9,1323.38 1102.02,1323.49 1102.13,1323.6 1102.24,1323.72 1106.05,1327.71 1105.9,1334.02 1101.9,1337.82L1053.7,1385.91C1053.59,1386.02 1053.47,1386.14 1053.36,1386.25 1049.36,1390.05 1043.04,1389.89 1039.23,1385.91L990.997,1337.82C987.001,1333.84 987.001,1327.37 990.997,1323.38 994.992,1319.4 1001.47,1319.4 1005.47,1323.38L1036,1353.84 1036,1271.63 1035.99,1271.63C1035.99,1264.1,1040.69,1258,1046.5,1258z" />
+                                                                            </GeometryDrawing.Geometry>
+                                                                        </GeometryDrawing>
+                                                                    </DrawingGroup>
+                                                                </DrawingGroup>
+                                                            </DrawingGroup>
+                                                        </DrawingImage.Drawing>
+                                                    </DrawingImage>
+                                                </Image.Source>
+                                            </Image>
+                                        </Grid>
+                                    </Border>
+                                </StackPanel>
+                                                            
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!--
+                                        动画这里To的值，等于border的0.9*Width-0.05*Height
+                                        -->
+                                        <DoubleAnimation Storyboard.TargetName="iconBorder"
+                                                         Storyboard.TargetProperty="Width"
+                                                         To="159"
+                                                         Duration="0:0:0.6">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseInOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!--
+                                        这里的To=0.7*Height
+                                        -->
+                                        <DoubleAnimation Storyboard.TargetName="iconBorder"
+                                                         Storyboard.TargetProperty="Width"
+                                                         To="42"
+                                                         Duration="0:0:0.6">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseInOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            
+                            <!--#触发的效果-->
+
+                            <Trigger Property="IsPressed"
+                                     Value="True">
+                                <Setter TargetName="iconBorder"
+                                        Property="Background"
+                                        Value="#000000" />
+                                <Setter TargetName="leftBorder"
+                                        Property="Background"
+                                        Value="#000000" />
+                                <Setter TargetName="rightBorder"
+                                        Property="Background"
+                                        Value="#000000" />
+                            </Trigger>
+                            <Trigger Property="IsPressed"
+                                     Value="False">
+                                <Setter TargetName="iconBorder"
+                                        Property="Background"
+                                        Value="#00B86A" />
+                                <Setter TargetName="leftBorder"
+                                        Property="Background"
+                                        Value="#00B86A" />
+                                <Setter TargetName="rightBorder"
+                                        Property="Background"
+                                        Value="#00B86A" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
+    <!--#页面上使用-->
+    <Grid>
+        <Button x:Name="downloadButton"
+                Style="{StaticResource DownloadButtonStyle}"
+                Click="downloadButton_Click"/>
+    </Grid>
+</Window>

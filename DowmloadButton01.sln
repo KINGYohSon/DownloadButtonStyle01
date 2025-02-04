@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DowmloadButton01", "DowmloadButton01.csproj", "{BF426B81-773C-443E-9F2F-31B2C0D0D932}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BF426B81-773C-443E-9F2F-31B2C0D0D932}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF426B81-773C-443E-9F2F-31B2C0D0D932}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF426B81-773C-443E-9F2F-31B2C0D0D932}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF426B81-773C-443E-9F2F-31B2C0D0D932}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
