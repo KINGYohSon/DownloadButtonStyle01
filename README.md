@@ -1,5 +1,6 @@
 # DownloadButtonStyle01
-> GhostKINGC WPF UI open source Style!
+GhostKINGC WPF UI open source Style!
+  ![](preview.gif)
 
 > **User guide**
 
@@ -7,4 +8,4 @@
 
 > The exact method of changing the value is described in the comments.
 
-  ![](preview.gif)
+
